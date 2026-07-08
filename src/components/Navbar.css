@@ -1,0 +1,32 @@
+ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFF8E7;
+  padding: 15px 40px;
+}
+.logo {
+  color: #800020;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+}
+ul li {
+  color: #800020;
+  font-weight: 600;
+   cursor: pointer;
+}
+.navbar a {
+  text-decoration: none;
+  color: #800020;
+  font-weight: 600;
+}
+
+.navbar a:hover {
+  color: #B8860B;
+}
