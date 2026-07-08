@@ -1,5 +1,5 @@
 // Small tolerance to avoid false detections
-const TOLERANCE = 0.02;
+const TOLERANCE = 0.005;
 
 // Checks whether a finger is extended.
 function isFingerExtended(landmarks, mcp, pip, dip, tip) {
@@ -10,7 +10,7 @@ function isFingerExtended(landmarks, mcp, pip, dip, tip) {
   );
 }
 
-// Distance between two landmarks
+// Calculates distance between two landmarks
 function getDistance(point1, point2) {
   const dx = point1.x - point2.x;
   const dy = point1.y - point2.y;
@@ -18,8 +18,9 @@ function getDistance(point1, point2) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-// Analyze the current hand pose.
+// Analyze the current hand pose
 export function analyzeHand(landmarks) {
+  // Safety check
   if (!landmarks || landmarks.length !== 21) {
     return {
       thumbExtended: false,
@@ -37,42 +38,58 @@ export function analyzeHand(landmarks) {
     landmarks[5]
   );
 
-  return {
-    // Thumb is considered extended if it is far away from the palm
-    thumbExtended: thumbDistance > 0.12,
+  // Analyze fingers
+  const indexExtended = isFingerExtended(
+    landmarks,
+    5,
+    6,
+    7,
+    8
+  );
 
+  const middleExtended = isFingerExtended(
+    landmarks,
+    9,
+    10,
+    11,
+    12
+  );
+
+  const ringExtended = isFingerExtended(
+    landmarks,
+    13,
+    14,
+    15,
+    16
+  );
+
+  const littleExtended = isFingerExtended(
+    landmarks,
+    17,
+    18,
+    19,
+    20
+  );
+
+  const thumbExtended = thumbDistance > 0.12;
+
+  // Debug information
+  console.log({
+    thumbDistance: thumbDistance.toFixed(3),
+    thumbExtended,
+    indexExtended,
+    middleExtended,
+    ringExtended,
+    littleExtended,
+  });
+
+  return {
+    thumbExtended,
     thumbDistance,
 
-    indexExtended: isFingerExtended(
-      landmarks,
-      5,
-      6,
-      7,
-      8
-    ),
-
-    middleExtended: isFingerExtended(
-      landmarks,
-      9,
-      10,
-      11,
-      12
-    ),
-
-    ringExtended: isFingerExtended(
-      landmarks,
-      13,
-      14,
-      15,
-      16
-    ),
-
-    littleExtended: isFingerExtended(
-      landmarks,
-      17,
-      18,
-      19,
-      20
-    ),
+    indexExtended,
+    middleExtended,
+    ringExtended,
+    littleExtended,
   };
 }
