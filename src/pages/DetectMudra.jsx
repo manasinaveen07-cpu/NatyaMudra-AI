@@ -102,17 +102,17 @@ function DetectMudra() {
             });
 
             // ----------------------------
-            // Detect Pataka
+            // Detect Mudras
             // ----------------------------
             const isPataka = detectPataka(landmarks);
 
-            if (isPataka) {
-              setDetectedMudra("Pataka");
-              setConfidence(95);
-            } else {
-              setDetectedMudra("No Mudra");
-              setConfidence(0);
-            }
+if (isPataka) {
+  setDetectedMudra("Pataka");
+  setConfidence(95);
+} else {
+  setDetectedMudra("No Mudra");
+  setConfidence(0);
+}
           } else {
             // ----------------------------
             // No Hand Detected
