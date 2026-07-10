@@ -6,12 +6,17 @@ import {
   HAND_CONNECTIONS,
 } from "../ai/handDetector";
 import { mudraData } from "../ai/mudraData";
-import { detectPataka } from "../ai/mudraClassifier";
+import {
+  detectPataka,
+  detectTripataka,
+} from "../ai/mudraClassifier";
 
 function DetectMudra() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
+  const stableMudraRef = useRef("No Mudra");
+  const stableCountRef = useRef(0);
 
   const [cameraOn, setCameraOn] = useState(false);
   const [detectedMudra, setDetectedMudra] = useState("No Mudra");
@@ -49,6 +54,7 @@ function DetectMudra() {
           if (!videoRef.current) return;
 
           const landmarks = detectHand(video);
+          console.log("Landmarks:", landmarks);
 
           const ctx = canvas.getContext("2d");
 
@@ -104,14 +110,34 @@ function DetectMudra() {
             // ----------------------------
             // Detect Mudras
             // ----------------------------
-            const isPataka = detectPataka(landmarks);
+           const isTripataka = detectTripataka(landmarks);
+const isPataka = detectPataka(landmarks);
 
-if (isPataka) {
-  setDetectedMudra("Pataka");
-  setConfidence(95);
-} else {
-  setDetectedMudra("No Mudra");
-  setConfidence(0);
+let currentPrediction = "No Mudra";
+
+if (isTripataka) {
+  currentPrediction = "Tripataka";
+}
+else if (isPataka) {
+  currentPrediction = "Pataka";
+}
+
+if (currentPrediction === stableMudraRef.current) {
+  stableCountRef.current++;
+}
+else {
+  stableMudraRef.current = currentPrediction;
+  stableCountRef.current = 1;
+}
+
+if (stableCountRef.current >= 5) {
+  setDetectedMudra(currentPrediction);
+
+  if (currentPrediction === "No Mudra") {
+    setConfidence(0);
+  } else {
+    setConfidence(95);
+  }
 }
           } else {
             // ----------------------------

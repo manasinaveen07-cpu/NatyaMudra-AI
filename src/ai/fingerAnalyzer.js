@@ -1,5 +1,5 @@
 // Small tolerance to avoid false detections
-const TOLERANCE = 0.005;
+const TOLERANCE = 0.02;
 
 // Checks whether a finger is extended.
 function isFingerExtended(landmarks, mcp, pip, dip, tip) {
@@ -12,9 +12,11 @@ function isFingerExtended(landmarks, mcp, pip, dip, tip) {
 
 // Checks whether a finger is bent.
 function isFingerBent(landmarks, mcp, pip, dip, tip) {
-  return landmarks[tip].y > landmarks[pip].y;
+  return (
+    landmarks[tip].y > landmarks[dip].y ||
+    landmarks[dip].y > landmarks[pip].y
+  );
 }
-
 // Distance between two landmarks
 function getDistance(point1, point2) {
   const dx = point1.x - point2.x;
