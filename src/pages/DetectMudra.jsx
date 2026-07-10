@@ -9,6 +9,7 @@ import { mudraData } from "../ai/mudraData";
 import {
   detectPataka,
   detectTripataka,
+  detectArdhapataka,
 } from "../ai/mudraClassifier";
 
 function DetectMudra() {
@@ -110,12 +111,15 @@ function DetectMudra() {
             // ----------------------------
             // Detect Mudras
             // ----------------------------
-           const isTripataka = detectTripataka(landmarks);
+           const isArdhapataka = detectArdhapataka(landmarks);
+const isTripataka = detectTripataka(landmarks);
 const isPataka = detectPataka(landmarks);
-
 let currentPrediction = "No Mudra";
 
-if (isTripataka) {
+if (isArdhapataka) {
+  currentPrediction = "Ardhapataka";
+}
+else if (isTripataka) {
   currentPrediction = "Tripataka";
 }
 else if (isPataka) {

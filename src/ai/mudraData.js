@@ -11,6 +11,12 @@ export const mudraData = {
   usage:
     "Used to represent a crown, a tree, flames, an arrow, or the deity Indra in Bharatanatyam.",
 },
+Ardhapataka: {
+  name: "Ardhapataka",
+  meaning: "Half Flag",
+  usage:
+    "Used to represent leaves, a knife, a river bank, and certain natural objects in Bharatanatyam.",
+},
 
   "No Mudra": {
     name: "No Mudra",

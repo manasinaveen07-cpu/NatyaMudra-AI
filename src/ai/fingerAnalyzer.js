@@ -78,6 +78,13 @@ export function analyzeHand(landmarks) {
     19,
     20
   );
+  const littleBent = isFingerBent(
+  landmarks,
+  17,
+  18,
+  19,
+  20
+);
 
   const ringBent = isFingerBent(
     landmarks,
@@ -88,17 +95,17 @@ export function analyzeHand(landmarks) {
   );
 
   const thumbExtended = thumbDistance > 0.12;
+return {
+  thumbExtended,
 
-  return {
-    thumbExtended,
+  indexExtended,
+  middleExtended,
+  ringExtended,
+  littleExtended,
 
-    indexExtended,
-    middleExtended,
-    ringExtended,
-    littleExtended,
+  ringBent,
+  littleBent,
 
-    ringBent,
-
-    thumbDistance,
-  };
+  thumbDistance,
+};
 }

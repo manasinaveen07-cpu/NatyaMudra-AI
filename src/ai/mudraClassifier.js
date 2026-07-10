@@ -1,6 +1,8 @@
 import { analyzeHand } from "./fingerAnalyzer";
 
+// ----------------------------
 // Detect Pataka
+// ----------------------------
 export function detectPataka(landmarks) {
   const hand = analyzeHand(landmarks);
 
@@ -12,7 +14,9 @@ export function detectPataka(landmarks) {
   );
 }
 
+// ----------------------------
 // Detect Tripataka
+// ----------------------------
 export function detectTripataka(landmarks) {
   const hand = analyzeHand(landmarks);
 
@@ -21,5 +25,19 @@ export function detectTripataka(landmarks) {
     hand.middleExtended &&
     hand.ringBent &&
     hand.littleExtended
+  );
+}
+
+// ----------------------------
+// Detect Ardhapataka
+// ----------------------------
+export function detectArdhapataka(landmarks) {
+  const hand = analyzeHand(landmarks);
+
+  return (
+    hand.indexExtended &&
+    hand.middleExtended &&
+    hand.ringBent &&
+    hand.littleBent
   );
 }
